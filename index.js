@@ -182,6 +182,7 @@ function remove(el){
  */
 
 function prop(els, prop, val){
+  if(!els) return;
   for (var i = 0, len = els.length; i < len; ++i) {
     els[i][prop] = val
   }
