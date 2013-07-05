@@ -1,7 +1,7 @@
 
-# connector
+# movearound
 
-  Drag and drop items in different containers within one parent.
+  Move elements in multiple containers.
 
   ![Screen cast]()
 
