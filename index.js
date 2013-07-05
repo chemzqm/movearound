@@ -21,7 +21,7 @@ module.exports = Movearound;
  */
 
 function Movearound(el, className){
-  if (!(this instanceof Movearound)) return new Movearound(el);
+  if (!(this instanceof Movearound)) return new Movearound(el, className);
   if (!el) throw new TypeError('connector(): expects an element');
   this.className = className;
   this.events = events(el, this);
