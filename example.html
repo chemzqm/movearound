@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>UI Movearound</title>
+    <script src='build/build.js'></script>
+    <style>
+
+      body {
+        padding: 80px;
+        font-family: 'Helvetica Neue';
+        font-weight: 200;
+      }
+
+      h2 {
+        font-weight: inherit;
+      }
+      .col {
+        float: left;
+        width: 200px;
+        height: 300px;
+        cursor: pointer;
+      }
+      .col > div {
+        height: 30px;
+        border: 1px solid #ccc;
+      }
+      .clearfix:after {
+        content:".";
+        display:block;
+        height:0;
+        clear:both;
+        visibility:hidden;
+      }
+      .clearfix {display:inline-block;}
+      /* Hide from IE Mac \*/
+      .clearfix {display:block;}
+      /* End hide from IE Mac */
+
+    </style>
+  </head>
+  <body>
+
+    <h2>List</h2>
+    <div class='languages clearfix'>
+      <div class="col">
+        <div class="item">Javascript</div>
+        <div class="item">Lua</div>
+        <div class="item">Python</div>
+        <div class="item">Google Go</div>
+        <div class="item">Julia</div>
+        <div class="item">Ruby</div>
+      </div>
+      <div class="col">
+      </div>
+    </div>
+
+    <button id="add">add</button>
+    <button id="remove">remove</button>
+    <button id="addcolumn">add column</button>
+
+    <script>
+      var Movearound = require('movearound');
+      var dom = document.querySelector('.languages');
+
+      // all
+      var movearound = new Movearound(dom, 'col');
+      movearound.bind();
+
+      document.querySelector('#add').addEventListener('click', function(){
+          var el = document.createElement('div');
+          el.innerHTML = 'Go';
+          var target = document.querySelector('.languages .col:first-child');
+          target.appendChild(el);
+          //新添加排序子元素需要重绑定
+          movearound.bind();
+      });
+
+      document.querySelector('#remove').addEventListener('click', function(){
+          var el = document.querySelector('.col div:first-child');
+          el.parentNode.removeChild(el);
+          //删除一个元素也需要rebind重绑定
+          movearound.bind();
+      });
+
+      document.querySelector('#addcolumn').addEventListener('click', function(){
+          var el = document.createElement('div');
+          el.style.height = '300px';
+          el.className = 'col';
+          document.querySelector('.languages').appendChild(el);
+          //添加容易需要使用add方法加入列表
+          movearound.bind();
+      });
+    </script>
+  </body>
+</html>
