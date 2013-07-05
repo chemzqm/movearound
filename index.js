@@ -82,6 +82,8 @@ Movearound.prototype.unbind = function(e){
 Movearound.prototype.ondragstart = function(e){
   this.draggable = e.target;
   this.display = window.getComputedStyle(e.target).display;
+  var h = window.getComputedStyle(e.target).height;
+  this.clone.style.height = h;
   e.dataTransfer.setData('text', ' ');
   e.dataTransfer.effectAllowed = 'move';
   classes(e.target).add('dragging');
