@@ -3,7 +3,7 @@
 
   Move elements in multiple containers.
 
-  ![Screen cast](http://chemzqm.github.io/movearound/screencast.html)
+  ![Screen cast](http://chemzqm.github.io/movearound/screencast.png)
 
   [Demo](http://chemzqm.github.io/movearound/index.html)
 
