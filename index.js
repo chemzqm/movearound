@@ -55,7 +55,7 @@ Movearound.prototype.bind = function(e){
       this.els.push(children[j]);
     }
   }
-  if (this.els.length === [0]) return;
+  if (this.els.length === 0) return;
   prop(this.els, 'draggable', true);
   this.clone = this.els[0].cloneNode(true);
   this.clone.innerHTML = '';
