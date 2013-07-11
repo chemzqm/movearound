@@ -76,6 +76,17 @@ Movearound.prototype.unbind = function(e){
 };
 
 /**
+ * destroy movearound
+ *
+ * @return  {Movearound}
+ */
+
+Movearound.prototype.remove = function() {
+  this.off();
+  this.unbind();
+};
+
+/**
  * on-dragstart
  */
 
