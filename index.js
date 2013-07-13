@@ -57,10 +57,14 @@ Movearound.prototype.bind = function(e){
   }
   if (this.els.length === 0) return;
   prop(this.els, 'draggable', true);
-  this.clone = this.els[0].cloneNode(true);
+  return this;
+};
+
+Movearound.prototype._clone = function(node) {
+  this.clone = null;
+  this.clone = node.cloneNode(true);
   this.clone.innerHTML = '';
   classes(this.clone).add('sortable-placeholder');
-  return this;
 };
 
 /**
@@ -92,6 +96,7 @@ Movearound.prototype.remove = function() {
 
 Movearound.prototype.ondragstart = function(e){
   this.draggable = e.target;
+  this._clone(this.draggable);
   this.display = window.getComputedStyle(e.target).display;
   var h = window.getComputedStyle(e.target).height;
   this.clone.style.height = h;
@@ -109,7 +114,7 @@ Movearound.prototype.ondragstart = function(e){
 Movearound.prototype.ondragenter =
 Movearound.prototype.ondragover = function(e){
   e.preventDefault();
-  if (!this.draggable) return;
+  if (!this.draggable || !this.clone) return;
   if (e.target === this.el) return;
   var el = e.target;
   var parent;
