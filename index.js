@@ -56,11 +56,13 @@ Movearound.prototype.bind = function(e){
   for (var i = 0; i < this.parents.length; i++) {
     var children = this.parents[i].children;
     for (var j = 0; j < children.length; j++) {
+      if (!this.handle) {
+        children[j].classList.add('handler')
+      }
       this.els.push(children[j]);
     }
   }
   if (this.els.length === 0) return;
-  prop(this.els, 'draggable', true);
   return this;
 };
 
@@ -78,7 +80,6 @@ Movearound.prototype._clone = function(node) {
  */
 
 Movearound.prototype.unbind = function(e){
-  prop(this.els, 'draggable', false);
   this.events.unbind();
   return this;
 };
@@ -96,10 +97,10 @@ Movearound.prototype.remove = function() {
 };
 
 Movearound.prototype.onmousedown = function(e) {
-  if (!this.handle) return;
   var node = e.target;
   while (node && node !== this.el){
     if (node.classList.contains('handler')) {
+      prop(this.els, 'draggable', true);
       return this._handler = node;
     }
     node = node.parentNode;
@@ -111,7 +112,7 @@ Movearound.prototype.onmousedown = function(e) {
  */
 
 Movearound.prototype.ondragstart = function(e){
-  if (this.handle && !this._handler) {
+  if (!this._handler) {
     return e.preventDefault();
   }
   this._handler = null;
@@ -164,6 +165,7 @@ Movearound.prototype.ondragover = function(e){
  */
 
 Movearound.prototype.ondragend = function(e){
+  prop(this.els, 'draggable', false);
   if (!this.draggable) return;
   if (this.clone) remove(this.clone);
   this.draggable.style.display = this.display;
