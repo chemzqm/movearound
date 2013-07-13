@@ -82,6 +82,8 @@ Movearound.prototype._clone = function(node) {
 
 Movearound.prototype.unbind = function(e){
   this.events.unbind();
+  this.parents = null;
+  this.clone = null;
   return this;
 };
 
@@ -130,6 +132,8 @@ Movearound.prototype.ondragstart = function(e){
   }
   this._handler = null;
   this._clone(this.draggable);
+  this.i = indexof(e.target);
+  this.parent = e.target.parentNode;
   this.display = window.getComputedStyle(e.target).display;
   var h = window.getComputedStyle(e.target).height;
   this.clone.style.height = h;
@@ -181,7 +185,11 @@ Movearound.prototype.ondragend = function(e){
   if (!this.draggable) return;
   this.draggable.style.display = this.display;
   classes(this.draggable).remove('dragging');
-  this.emit('update');
+  this.draggable.draggable = false;
+  if (indexof(this.draggable) !== this.i
+      || this.draggable.parentNode !== this.parent){
+      this.emit('update');
+  }
 };
 
 /**
@@ -204,7 +212,8 @@ Movearound.prototype.ondrop = function(e){
  */
 
 Movearound.prototype.reset = function(){
-  if (this.draggable) { this.draggable.draggable = false; }
+  this.i = null;
+  this.parent = null;
   this.draggable = null;
   this.display = null;
 };
