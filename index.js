@@ -17,13 +17,16 @@ module.exports = Movearound;
  * Initialize `Movearound` with `el`.
  *
  * @param {Element} el
+ * @param {String} className class name to find the draggable elements
+ * @param {Boolean} handle [optional] whether to set handler element
  * @param {String} class name used for finding sortable elements
  */
 
-function Movearound(el, className){
+function Movearound(el, className, handle){
   if (!(this instanceof Movearound)) return new Movearound(el, className);
   if (!el) throw new TypeError('connector(): expects an element');
   this.className = className;
+  this.handle = handle;
   this.events = events(el, this);
   this.el = el;
 }
@@ -47,6 +50,7 @@ Movearound.prototype.bind = function(e){
   this.events.bind('dragenter');
   this.events.bind('dragend');
   this.events.bind('drop');
+  this.events.bind('mousedown');
   this.parents = this.el.querySelectorAll('.' + this.className);
   this.els = [];
   for (var i = 0; i < this.parents.length; i++) {
@@ -86,15 +90,31 @@ Movearound.prototype.unbind = function(e){
  */
 
 Movearound.prototype.remove = function() {
+  this.events.unbind();
   this.off();
   this.unbind();
 };
 
+Movearound.prototype.onmousedown = function(e) {
+  if (!this.handle) return;
+  var node = e.target;
+  while (node && node !== this.el){
+    if (node.classList.contains('handler')) {
+      return this._handler = node;
+    }
+    node = node.parentNode;
+  }
+  this._handler = null;
+};
 /**
  * on-dragstart
  */
 
 Movearound.prototype.ondragstart = function(e){
+  if (this.handle && !this._handler) {
+    return e.preventDefault();
+  }
+  this._handler = null;
   this.draggable = e.target;
   this._clone(this.draggable);
   this.display = window.getComputedStyle(e.target).display;

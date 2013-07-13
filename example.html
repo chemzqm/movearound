@@ -43,7 +43,10 @@
     <h2>List</h2>
     <div class='languages clearfix'>
       <div class="col">
-        <div class="item">Javascript</div>
+        <div class="item">
+          <div class="handler title">javascript</div>
+          <div class="body">hi javascript</div>
+        </div>
         <div class="item">Lua</div>
         <div class="item">Python</div>
         <div class="item">Google Go</div>
@@ -63,7 +66,7 @@
       var dom = document.querySelector('.languages');
 
       // all
-      var movearound = new Movearound(dom, 'col');
+      var movearound = new Movearound(dom, 'col', true);
       movearound.bind();
 
       document.querySelector('#add').addEventListener('click', function(){
