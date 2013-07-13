@@ -51,6 +51,7 @@ Movearound.prototype.bind = function(e){
   this.events.bind('dragend');
   this.events.bind('drop');
   this.events.bind('mousedown');
+  this.events.bind('mouseup');
   this.parents = this.el.querySelectorAll('.' + this.className);
   this.els = [];
   for (var i = 0; i < this.parents.length; i++) {
@@ -81,6 +82,8 @@ Movearound.prototype._clone = function(node) {
 
 Movearound.prototype.unbind = function(e){
   this.events.unbind();
+  this.parents = null;
+  this.clone = null;
   return this;
 };
 
@@ -100,12 +103,24 @@ Movearound.prototype.onmousedown = function(e) {
   var node = e.target;
   while (node && node !== this.el){
     if (node.classList.contains('handler')) {
-      prop(this.els, 'draggable', true);
-      return this._handler = node;
+      for (var i = 0; i < this.els.length; i++) {
+        if (this.els[i].contains(node)) {
+          this.draggable = this.els[i];
+          this.draggable.draggable = true;
+        }
+      }
+      this._handler = node;
+      return;
     }
     node = node.parentNode;
   }
   this._handler = null;
+};
+
+Movearound.prototype.onmouseup = function(e) {
+  if (this.draggable) {
+    this.draggable.draggable = false;
+  }
 };
 /**
  * on-dragstart
@@ -116,8 +131,9 @@ Movearound.prototype.ondragstart = function(e){
     return e.preventDefault();
   }
   this._handler = null;
-  this.draggable = e.target;
   this._clone(this.draggable);
+  this.i = indexof(e.target);
+  this.parent = e.target.parentNode;
   this.display = window.getComputedStyle(e.target).display;
   var h = window.getComputedStyle(e.target).height;
   this.clone.style.height = h;
@@ -165,12 +181,15 @@ Movearound.prototype.ondragover = function(e){
  */
 
 Movearound.prototype.ondragend = function(e){
-  prop(this.els, 'draggable', false);
-  if (!this.draggable) return;
   if (this.clone) remove(this.clone);
+  if (!this.draggable) return;
   this.draggable.style.display = this.display;
   classes(this.draggable).remove('dragging');
-  this.emit('update');
+  this.draggable.draggable = false;
+  if (indexof(this.draggable) !== this.i
+      || this.draggable.parentNode !== this.parent){
+      this.emit('update');
+  }
 };
 
 /**
@@ -193,6 +212,8 @@ Movearound.prototype.ondrop = function(e){
  */
 
 Movearound.prototype.reset = function(){
+  this.i = null;
+  this.parent = null;
   this.draggable = null;
   this.display = null;
 };
