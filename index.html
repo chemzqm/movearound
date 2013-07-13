@@ -22,7 +22,6 @@
         cursor: pointer;
       }
       .col > div {
-        height: 30px;
         border: 1px solid #ccc;
       }
       .clearfix:after {
@@ -36,7 +35,15 @@
       /* Hide from IE Mac \*/
       .clearfix {display:block;}
       /* End hide from IE Mac */
-
+      #numbers ul {
+        float: left;
+        width: 100px;
+        min-height: 50px;
+      }
+      #numbers ul > li{
+        list-style: none;
+        border-bottom: 1px solid #ccc;
+      }
     </style>
   </head>
   <body>
@@ -44,7 +51,10 @@
     <h2>List</h2>
     <div class='languages clearfix'>
       <div class="col">
-        <div class="item">Javascript</div>
+        <div class="item">
+          <div class="handler title">javascript</div>
+          <div class="body">hi javascript</div>
+        </div>
         <div class="item">Lua</div>
         <div class="item">Python</div>
         <div class="item">Google Go</div>
@@ -59,13 +69,35 @@
     <button id="remove">remove</button>
     <button id="addcolumn">add column</button>
 
+    <h3>Another list</h3>
+    <div id="numbers" class="clearfix">
+      <ul class="column">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+      </ul>
+      <ul class="column">
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+      </ul>
+    </div>
+
+
     <script>
       var Movearound = require('movearound');
       var dom = document.querySelector('.languages');
 
       // all
-      var movearound = new Movearound(dom, 'col');
+      var movearound = new Movearound(dom, 'col', true);
       movearound.bind();
+      movearound.on('update', function(){
+          console.log(11);
+      });
+
+      var numbers = document.getElementById('numbers');
+      var m = new Movearound(numbers, 'column');
+      m.bind();
 
       document.querySelector('#add').addEventListener('click', function(){
           var el = document.createElement('div');

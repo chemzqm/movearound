@@ -17,13 +17,16 @@ module.exports = Movearound;
  * Initialize `Movearound` with `el`.
  *
  * @param {Element} el
+ * @param {String} className class name to find the draggable elements
+ * @param {Boolean} handle [optional] whether to set handler element
  * @param {String} class name used for finding sortable elements
  */
 
-function Movearound(el, className){
-  if (!(this instanceof Movearound)) return new Movearound(el);
+function Movearound(el, className, handle){
+  if (!(this instanceof Movearound)) return new Movearound(el, className);
   if (!el) throw new TypeError('connector(): expects an element');
   this.className = className;
+  this.handle = handle;
   this.events = events(el, this);
   this.el = el;
 }
@@ -47,20 +50,27 @@ Movearound.prototype.bind = function(e){
   this.events.bind('dragenter');
   this.events.bind('dragend');
   this.events.bind('drop');
+  this.events.bind('mousedown');
   this.parents = this.el.querySelectorAll('.' + this.className);
   this.els = [];
   for (var i = 0; i < this.parents.length; i++) {
     var children = this.parents[i].children;
     for (var j = 0; j < children.length; j++) {
+      if (!this.handle) {
+        children[j].classList.add('handler')
+      }
       this.els.push(children[j]);
     }
   }
-  if (this.els.length === [0]) return;
-  prop(this.els, 'draggable', true);
-  this.clone = this.els[0].cloneNode(true);
+  if (this.els.length === 0) return;
+  return this;
+};
+
+Movearound.prototype._clone = function(node) {
+  this.clone = null;
+  this.clone = node.cloneNode(true);
   this.clone.innerHTML = '';
   classes(this.clone).add('sortable-placeholder');
-  return this;
 };
 
 /**
@@ -70,18 +80,47 @@ Movearound.prototype.bind = function(e){
  */
 
 Movearound.prototype.unbind = function(e){
-  prop(this.els, 'draggable', false);
   this.events.unbind();
   return this;
 };
 
 /**
+ * destroy movearound
+ *
+ * @return  {Movearound}
+ */
+
+Movearound.prototype.remove = function() {
+  this.events.unbind();
+  this.off();
+  this.unbind();
+};
+
+Movearound.prototype.onmousedown = function(e) {
+  var node = e.target;
+  while (node && node !== this.el){
+    if (node.classList.contains('handler')) {
+      prop(this.els, 'draggable', true);
+      return this._handler = node;
+    }
+    node = node.parentNode;
+  }
+  this._handler = null;
+};
+/**
  * on-dragstart
  */
 
 Movearound.prototype.ondragstart = function(e){
+  if (!this._handler) {
+    return e.preventDefault();
+  }
+  this._handler = null;
   this.draggable = e.target;
+  this._clone(this.draggable);
   this.display = window.getComputedStyle(e.target).display;
+  var h = window.getComputedStyle(e.target).height;
+  this.clone.style.height = h;
   e.dataTransfer.setData('text', ' ');
   e.dataTransfer.effectAllowed = 'move';
   classes(e.target).add('dragging');
@@ -96,7 +135,7 @@ Movearound.prototype.ondragstart = function(e){
 Movearound.prototype.ondragenter =
 Movearound.prototype.ondragover = function(e){
   e.preventDefault();
-  if (!this.draggable) return;
+  if (!this.draggable || !this.clone) return;
   if (e.target === this.el) return;
   var el = e.target;
   var parent;
@@ -126,6 +165,7 @@ Movearound.prototype.ondragover = function(e){
  */
 
 Movearound.prototype.ondragend = function(e){
+  prop(this.els, 'draggable', false);
   if (!this.draggable) return;
   if (this.clone) remove(this.clone);
   this.draggable.style.display = this.display;
@@ -180,6 +220,7 @@ function remove(el){
  */
 
 function prop(els, prop, val){
+  if(!els) return;
   for (var i = 0, len = els.length; i < len; ++i) {
     els[i][prop] = val
   }

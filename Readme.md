@@ -3,7 +3,9 @@
 
   Move elements in multiple containers.
 
-  ![Screen cast]()
+  ![Screen cast](http://chemzqm.github.io/movearound/screencast.png)
+
+  [Demo](http://chemzqm.github.io/movearound/index.html)
 
 ## Installation
 
@@ -18,7 +20,7 @@
 Initialize Movearound with every containers has class `className` in node `el`.
 
 
-#### bind()
+### bind()
 
 Initialize or rebind all the drag and drop events.
 
@@ -26,9 +28,13 @@ Every node as the direct children of every container would become moveable aroun
 
 This method **should** be called every time there's container or draggable element added/removed.
 
-#### unbind()
+### unbind()
 
 Unbind all the D&D events.
+
+### remove()
+
+unbind the events and remove the event listeners.
 
 Inspired by <https://github.com/yields/sortable>
 
