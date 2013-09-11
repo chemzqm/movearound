@@ -15,7 +15,7 @@
 
 ## API
 
-#### Connector(el, className , [handler])
+#### new Movearound(el, className , [handler])
 
 Initialize Movearound with every containers has class `className` in node `el`.
 
