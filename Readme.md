@@ -27,7 +27,7 @@ Initialize or rebind all the drag and drop events.
 
 Every node as the direct children of every container would become moveable around all the containers.
 
-This method **should** be called every time there's container or draggable element added/removed.
+**No need** to call this method when there's container/element added/removed.
 
 ### unbind()
 
