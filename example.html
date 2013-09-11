@@ -20,6 +20,7 @@
         width: 200px;
         height: 300px;
         cursor: pointer;
+        background-color: #eee;
       }
       .col > div {
         border: 1px solid #ccc;
@@ -89,7 +90,7 @@
       var dom = document.querySelector('.languages');
 
       // all
-      var movearound = new Movearound(dom, 'col', true);
+      var movearound = new Movearound(dom, 'col');
       movearound.bind();
       movearound.on('update', function(){
           console.log(11);
