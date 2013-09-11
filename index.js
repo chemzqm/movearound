@@ -43,7 +43,7 @@ emitter(Movearound.prototype);
  * @return {Movearound}
  */
 
-Movearound.prototype.bind = function(e){
+Movearound.prototype.bind = function(){
   this.events.unbind();
   this.events.bind('dragstart');
   this.events.bind('dragover');
