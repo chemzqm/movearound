@@ -1,7 +1,7 @@
 
 # movearound
 
-  Move elements in multiple containers.
+  Move elements in multiple containers. The element for dragging could be added dynamicly and also the container could be added dynamicly.
 
   ![Screen cast](http://chemzqm.github.io/movearound/screencast.png)
 
@@ -15,10 +15,11 @@
 
 ## API
 
-#### Connector(el, className)
+#### Connector(el, className , [handler])
 
 Initialize Movearound with every containers has class `className` in node `el`.
 
+If the `handler` is set to true, elmenet has className `handler` would be used for dragging.
 
 ### bind()
 
