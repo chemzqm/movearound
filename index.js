@@ -154,7 +154,7 @@ Movearound.prototype.ondragover = function(e){
   if (e.target === this.el) return;
   var el = e.target;
   var parent;
-  if (contains(this.parents, el)) {
+  if (within(this.parents, el)) {
     parent = el;
     el = null;
   } else {
@@ -246,7 +246,7 @@ function prop(els, p, val){
   }
 }
 
-function contains (list, element) {
+function within (list, element) {
   for (var i = 0; i < list.length; i++) {
     if (list[i] === element) {
       return true;
