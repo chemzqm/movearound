@@ -63,7 +63,6 @@ Movearound.prototype.bind = function(){
       this.els.push(children[j]);
     }
   }
-  if (this.els.length === 0) return;
   return this;
 };
 
@@ -240,10 +239,10 @@ function remove(el){
  * @param {Mixed} val
  */
 
-function prop(els, prop, val){
+function prop(els, p, val){
   if(!els) return;
   for (var i = 0, len = els.length; i < len; ++i) {
-    els[i][prop] = val
+    els[i][p] = val
   }
 }
 
