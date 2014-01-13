@@ -58,7 +58,7 @@ Movearound.prototype.bind = function(){
     var children = this.parents[i].children;
     for (var j = 0; j < children.length; j++) {
       if (!this.handle) {
-        children[j].classList.add('handler')
+        children[j].classList.add('movearound-handler')
       }
       this.els.push(children[j]);
     }
@@ -70,7 +70,7 @@ Movearound.prototype._clone = function(node) {
   this.clone = null;
   this.clone = node.cloneNode(true);
   this.clone.innerHTML = '';
-  classes(this.clone).add('sortable-placeholder');
+  classes(this.clone).add('movearound-placeholder');
 };
 
 /**
@@ -101,7 +101,7 @@ Movearound.prototype.remove = function() {
 Movearound.prototype.onmousedown = function(e) {
   var node = e.target;
   while (node && node !== this.el){
-    if (node.classList.contains('handler')) {
+    if (node.classList.contains('movearound-handler')) {
       for (var i = 0; i < this.els.length; i++) {
         if (this.els[i].contains(node)) {
           this.draggable = this.els[i];
@@ -160,7 +160,7 @@ Movearound.prototype.ondragover = function(e){
   } else {
     while (el && el !== this.el) {
       parent = el.parentNode;
-      if ( parent && contains(this.parents, parent))  break;
+      if ( parent && within(this.parents, parent))  break;
       el = parent;
     }
   }
