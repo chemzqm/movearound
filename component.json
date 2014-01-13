@@ -2,7 +2,7 @@
   "name": "movearound",
   "repo": "chemzqm/movearound",
   "description": "Drag and drop element in multiple containers easily",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "keywords": [],
   "dependencies": {
     "component/emitter": "*",
