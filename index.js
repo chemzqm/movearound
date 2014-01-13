@@ -52,17 +52,6 @@ Movearound.prototype.bind = function(){
   this.events.bind('drop');
   this.events.bind('mousedown');
   this.events.bind('mouseup');
-  this.parents = this.el.querySelectorAll('.' + this.className);
-  this.els = [];
-  for (var i = 0; i < this.parents.length; i++) {
-    var children = this.parents[i].children;
-    for (var j = 0; j < children.length; j++) {
-      if (!this.handle) {
-        children[j].classList.add('movearound-handler')
-      }
-      this.els.push(children[j]);
-    }
-  }
   return this;
 };
 
@@ -100,11 +89,22 @@ Movearound.prototype.remove = function() {
 
 Movearound.prototype.onmousedown = function(e) {
   var node = e.target;
+  this.parents = this.el.querySelectorAll('.' + this.className);
+  this.els = [];
+  for (var i = 0; i < this.parents.length; i++) {
+    var children = this.parents[i].children;
+    for (var j = 0; j < children.length; j++) {
+      if (!this.handle) {
+        children[j].classList.add('movearound-handler')
+      }
+      this.els.push(children[j]);
+    }
+  }
   while (node && node !== this.el){
     if (node.classList.contains('movearound-handler')) {
-      for (var i = 0; i < this.els.length; i++) {
-        if (this.els[i].contains(node)) {
-          this.draggable = this.els[i];
+      for (var k = 0; k < this.els.length; k++) {
+        if (this.els[k].contains(node)) {
+          this.draggable = this.els[k];
           this.draggable.draggable = true;
         }
       }

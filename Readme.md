@@ -27,8 +27,6 @@ Initialize or rebind all the drag and drop events.
 
 Every node as the direct children of every container would become moveable around all the containers.
 
-**No need** to call this method when there's container/element added/removed.
-
 ### unbind()
 
 Unbind all the D&D events.
