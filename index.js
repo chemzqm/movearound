@@ -164,7 +164,7 @@ Movearound.prototype.ondragover = function(e){
       el = parent;
     }
   }
-  if (!parent) return;
+  if (!parent || parent === this.el) return;
   e.dataTransfer.dropEffect = 'move';
   this.draggable.style.display = 'none';
   if (el) {
