@@ -1,6 +1,5 @@
 {
   "name": "movearound",
-  "repo": "chemzqm/movearound",
   "description": "Drag and drop element in multiple containers easily",
   "version": "0.4.0",
   "keywords": [],
@@ -10,10 +9,13 @@
     "component/classes": "*",
     "yields/indexof": "*"
   },
-  "development": {},
+  "development": {
+    "dependencies": {}
+  },
   "license": "MIT",
   "main": "index.js",
   "scripts": [
     "index.js"
-  ]
+  ],
+  "repository": "chemzqm/movearound"
 }
