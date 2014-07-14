@@ -105,25 +105,19 @@
           el.innerHTML = 'Go';
           var target = document.querySelector('.languages .col:first-child');
           target.appendChild(el);
-          //新添加排序子元素需要重绑定
-          movearound.bind();
-      });
+      })
 
       document.querySelector('#remove').addEventListener('click', function(){
           var el = document.querySelector('.col div:first-child');
           el.parentNode.removeChild(el);
-          //删除一个元素也需要rebind重绑定
-          movearound.bind();
-      });
+      })
 
       document.querySelector('#addcolumn').addEventListener('click', function(){
           var el = document.createElement('div');
           el.style.height = '300px';
           el.className = 'col';
           document.querySelector('.languages').appendChild(el);
-          //添加容易需要使用add方法加入列表
-          movearound.bind();
-      });
+      })
     </script>
   </body>
 </html>
