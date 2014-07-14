@@ -5,7 +5,7 @@
   "keywords": [],
   "dependencies": {
     "component/emitter": "*",
-    "component/events": "*",
+    "chemzqm/events": "*",
     "component/classes": "*",
     "yields/indexof": "*"
   },
