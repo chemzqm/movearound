@@ -5,13 +5,20 @@
 var emitter = require('emitter')
   , classes = require('classes')
   , events = require('events')
-  , indexof = require('indexof');
+  , indexOf = require('indexof');
 
 /**
  * export `Movearound`
  */
 
 module.exports = Movearound;
+
+function indexof(el) {
+  if (!el.parentNode) return -1;
+  var list = el.parentNode.children;
+  if (!list || list.length === 0) return -1;
+  return indexOf(list, el);
+}
 
 /**
  * Initialize `Movearound` with `el`.

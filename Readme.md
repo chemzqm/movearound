@@ -1,17 +1,14 @@
+# Movearound
 
-# movearound
-
-  Move elements in multiple containers. The element for dragging could be added dynamicly and also the container could be added dynamicly.
-
-  ![Screen cast](http://chemzqm.github.io/movearound/screencast.png)
+  Move elements in multiple containers. The element for dragging could be added dynamicly and also the container could be added dynamically.
 
   [Demo](http://chemzqm.github.io/movearound/index.html)
 
 ## Installation
 
-  Install with [component(1)](http://component.io):
+  Install with npm:
 
-    $ component install chemzqm/movearound
+    $ npm install movearound
 
 ## API
 

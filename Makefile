@@ -1,16 +1,18 @@
 
-build: components index.js
-	@component build --dev
+build:
+	@webpack example/example.js example/bundle.js
 
-components: component.json
-	@component install --dev
+install:
+	@npm install
 
-doc:
-	@component build --dev -c
+test: install build
+	@open example/example.html
+
+doc: install build
 	@rm -fr .gh-pages
 	@mkdir .gh-pages
-	@cp -r build .gh-pages/
-	@cp example.html .gh-pages/index.html
+	@cp example/example.html .gh-pages/index.html
+	@cp example/bundle.js .gh-pages
 	@ghp-import .gh-pages -n -p
 	@rm -fr .gh-pages
 

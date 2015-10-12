@@ -1,0 +1,36 @@
+{
+  "name": "movearound",
+  "version": "1.0.0",
+  "description": "move elements in multiple containers",
+  "main": "index.js",
+  "scripts": {
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chemzqm/movearound.git"
+  },
+  "keywords": [
+    "move",
+    "around",
+    "container"
+  ],
+  "author": "chemzqm@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chemzqm/movearound/issues"
+  },
+  "homepage": "https://github.com/chemzqm/movearound#readme",
+  "browser": {
+    "emitter": "component-emitter",
+    "events": "component-events",
+    "classes": "component-classes",
+    "indexof": "component-indexof"
+  },
+  "dependencies": {
+    "component-classes": "^1.2.4",
+    "component-emitter": "^1.2.0",
+    "component-events": "^1.0.9",
+    "component-indexof": "0.0.3"
+  }
+}

@@ -1,13 +1,13 @@
 {
   "name": "movearound",
   "description": "Drag and drop element in multiple containers easily",
-  "version": "0.4.1",
+  "version": "1.0.0",
   "keywords": [],
   "dependencies": {
     "component/emitter": "*",
-    "chemzqm/events": "*",
+    "component/events": "*",
     "component/classes": "*",
-    "yields/indexof": "*"
+    "component/indexof": "*"
   },
   "development": {
     "dependencies": {}
